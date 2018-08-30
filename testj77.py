@@ -41,7 +41,7 @@ C**********************************************************************
 '''
 from j77sri import *
 from math import *
-mz = 2500
+mz = 30
 Tinf = 1000
 
 
@@ -59,6 +59,10 @@ CH = [0 for _ in range(mz)]
 v = [0 for _ in range(7)]
 
 test = j77sri(mz, Tinf)
+Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM=test
+R=101325/(CM[0]*T[0])
+print(R*6.022045e23*1e-6)
+p= [ C*R*T for T,C in zip(T,CM)]
 
 def printStuff(i):
     for j in range(2,9):
@@ -67,8 +71,9 @@ def printStuff(i):
         else:
             test[j][i] = -9.9
     print(str(i).rjust(4), end='')
-    print('%8.2f'.rjust(4) % test[1][i], end='')
-    print('%8.4f'.rjust(4) % test[2][i], end='')
+    print('%8.2f'.rjust(4) % (p[i]*1e-2), end='')
+    print('%8.2f'.rjust(4) % (test[1][i]-273.15), end='')
+    print('%8.4f'.rjust(4) % (test[2][i]), end='')
     print('%8.4f'.rjust(4) % test[3][i], end='')
     print('%8.4f'.rjust(4) % test[4][i], end='')
     print('%8.4f'.rjust(4) % test[5][i], end='')
@@ -82,7 +87,10 @@ def printStuff(i):
     
 
 for i in range(0, mz+1):
-    if(i <= 80):
+    if(i <= 10):
+        if not(i % 1):
+            printStuff(i)
+    elif(i <= 80):
         if not(i % 5):
             printStuff(i)
             
