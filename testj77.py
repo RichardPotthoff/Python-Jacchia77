@@ -60,6 +60,8 @@ v = [0 for _ in range(7)]
 
 test = j77sri(mz, Tinf)
 Z, T, CN2, CO2, CO, CAr, CHe, CH, CM, WM=test
+p0=101325
+T0=test[1][0]
 R=101325/(CM[0]*T[0])
 print(R*6.022045e23*1e-6)
 p= [ C*R*T for T,C in zip(T,CM)]
@@ -72,6 +74,7 @@ def printStuff(i):
             test[j][i] = -9.9
     print(str(i).rjust(4), end='')
     print('%8.2f'.rjust(4) % (p[i]*1e-2), end='')
+    print('%8.2f'.rjust(4) % (T0*(p[i]/p0)**(2.0/7)-273.15), end='')
     print('%8.2f'.rjust(4) % (test[1][i]-273.15), end='')
     print('%8.4f'.rjust(4) % (test[2][i]), end='')
     print('%8.4f'.rjust(4) % test[3][i], end='')
